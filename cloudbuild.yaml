@@ -1,0 +1,32 @@
+steps:
+# Cloud Function steps
+- name: 'docker.io/library/python:3.9'
+  entrypoint: /bin/sh
+  # Run pip install and pytest in the same build step
+  # (pip packages won't be preserved in future steps!)
+  args: [-c, 'pip install -r requirements.txt']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: [
+    'functions', 'deploy', 'main',
+    '--source', './functions/',
+    '--project', 'clever-hangar-351317',
+    '--runtime', 'python39',
+    '--region', 'us-central1',
+    '--memory', '2048MB',
+    '--timeout', '540s',
+    '--trigger-topic', 'ps-every-5-mins-function-helloworld'
+  ]
+# Cloud Run job steps
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', './run/jobs/']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld']
+# Create container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['beta', 'run', 'jobs', 'update', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-central1']
+  # args: ['beta', 'run', 'jobs', 'create', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-central1']
+# images:
+# - gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld
