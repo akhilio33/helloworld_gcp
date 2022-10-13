@@ -8,7 +8,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   args: [
     'functions', 'deploy', 'main',
-    # '--source', './functions/',
+    '--source', './functions/',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-east4',
