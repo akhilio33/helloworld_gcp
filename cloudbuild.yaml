@@ -1,7 +1,7 @@
 steps:
 # Cloud Function steps
 - name: 'docker.io/library/python:3.9'
-  entrypoint: /bin/sh
+  # entrypoint: /bin/sh
   # Run pip install and pytest in the same build step
   # (pip packages won't be preserved in future steps!)
   args: [-c, 'pip install -r requirements.txt']
@@ -12,7 +12,7 @@ steps:
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-central1',
-    '--memory', '2048MB',
+    '--memory', '512MB',
     '--timeout', '540s',
     '--trigger-topic', 'ps-every-5-mins-function-helloworld'
   ]
