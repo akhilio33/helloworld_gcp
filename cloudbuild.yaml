@@ -26,7 +26,21 @@ steps:
 # Create container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
+  args: ['beta', 'run', 'jobs', 'update', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-east4']
+  # args: ['beta', 'run', 'jobs', 'create', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-east4']
+# Create Cloud Scheduler job to execute Cloud Run job on schedule
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
   # args: ['beta', 'run', 'jobs', 'update', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-east4']
-  args: ['beta', 'run', 'jobs', 'create', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-east4']
+  args: ['scheduler', 'jobs', 'create', 'every-5-mins-cloudrunjob', '--location', 'us-east-4', 'schedule', '* 17-19 * * *', '--uri', 'https://us-east-4-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/clever-hangar-351317/jobs/cloud-run-jobs-helloworld:run', '--http-method', 'POST', '--oauth-service-account-email', '467888596638-compute@developer.gserviceaccount.com' ]
+
+
+# gcloud scheduler jobs create http every-5-mins-cloudrunjob \
+#   --location us-east-4 \
+#   --schedule="* 17-19 * * *" \
+#   --uri="https://us-east-4-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/clever-hangar-351317/jobs/cloud-run-jobs-helloworld:run" \
+#   --http-method POST \
+#   --oauth-service-account-email 467888596638-compute@developer.gserviceaccount.com
+
 # images:
 # - gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld
