@@ -11,7 +11,7 @@ steps:
     # '--source', './functions/',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
-    '--region', 'us-central1',
+    '--region', 'us-east4',
     '--memory', '512MB',
     '--timeout', '540s',
     '--trigger-topic', 'ps-every-5-mins-function-helloworld'
