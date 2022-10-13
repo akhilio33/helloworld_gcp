@@ -7,7 +7,7 @@
 
 # Define main script
 def main(event, context):
-  print(f"Hello World!!")
+  print(f"Hello World!")
 
 # # Start script
 # if __name__ == "__main__":
