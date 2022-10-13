@@ -5,17 +5,17 @@ steps:
   # Run pip install and pytest in the same build step
   # (pip packages won't be preserved in future steps!)
   args: [-c, 'pip install -r requirements.txt']
-# - name: 'gcr.io/cloud-builders/gcloud'
-#   args: [
-#     'functions', 'deploy', 'main',
-#     '--source', './functions/',
-#     '--project', 'clever-hangar-351317',
-#     '--runtime', 'python39',
-#     '--region', 'us-central1',
-#     '--memory', '512MB',
-#     '--timeout', '540s',
-#     '--trigger-topic', 'ps-every-5-mins-function-helloworld'
-#   ]
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: [
+    'functions', 'deploy', 'main',
+    '--source', './functions/',
+    '--project', 'clever-hangar-351317',
+    '--runtime', 'python39',
+    '--region', 'us-central1',
+    '--memory', '512MB',
+    '--timeout', '540s',
+    '--trigger-topic', 'ps-every-5-mins-function-helloworld'
+  ]
 # # Cloud Run job steps
 # # Build the container image
 # - name: 'gcr.io/cloud-builders/docker'
