@@ -1,6 +1,6 @@
 steps:
 # Cloud Function steps
-- name: 'gcr.io/library/python:3.9'
+- name: 'docker.io/library/python:3.9'
   entrypoint: /bin/sh
   # Run pip install and pytest in the same build step
   # (pip packages won't be preserved in future steps!)
@@ -8,7 +8,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   args: [
     'functions', 'deploy', 'main',
-    '--source', './functions/',
+    # '--source', './functions/',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-central1',
