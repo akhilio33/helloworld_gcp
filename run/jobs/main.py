@@ -7,7 +7,7 @@
 
 # Define main script
 def main():
-  print(f"Hello World!!!")
+  print(f"Hello World!!")
 
 
 # Start script
