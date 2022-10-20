@@ -5,14 +5,15 @@
 # import time
 import sys
 sys.path.append('..')
+print(sys.path)
 
-import wrappers.wrapper_test
+# import wrappers.wrapper_test
 
 def main(event, context):
   print(f"Hello World!")
 
-  wt = wrappers.wrapper_test.testObject()
-  wt.test_func('tst str')
+  # wt = wrappers.wrapper_test.testObject()
+  # wt.test_func('tst str')
 
 # # Start script
 # if __name__ == "__main__":

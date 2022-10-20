@@ -5,7 +5,8 @@
 # import time
 
 import sys
-sys.path.append('../../')
+sys.path.append('../..')
+print(sys.path)
 
 import wrappers.wrapper_test
 
