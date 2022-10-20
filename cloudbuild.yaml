@@ -40,7 +40,9 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
+  - 'beta'
   - 'run'
+  - 'jobs'
   - 'deploy'
   - 'cloud-run-jobs-helloworld-1'
   - '--image'
