@@ -9,6 +9,6 @@ class testObject(object):
     # access secrets
     df = pd.DataFrame()
 
-  def test_func(str):
+  def test_func(self, str):
     print('wt works')
     print(str)
