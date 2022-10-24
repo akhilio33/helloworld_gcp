@@ -14,7 +14,7 @@ steps:
     '--region', 'us-east4',
     '--memory', '512MB',
     '--timeout', '540s',
-    '--trigger-topic', 'ps-every-5-mins-function-helloworld'
+    '--trigger-http' # 'ps-every-5-mins-function-helloworld'
   ]
 # Cloud Run job steps
 # Build the container image
