@@ -7,8 +7,7 @@ steps:
   args: [-c, 'pip install -r requirements.txt']
 - name: 'gcr.io/cloud-builders/gcloud'
   args: [
-    'functions', 'deploy', 'main',
-    '--source', './functions/',
+    'functions', 'deploy', 'call_func',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-east4',
