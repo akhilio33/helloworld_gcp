@@ -25,8 +25,8 @@ steps:
 # Create container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  # args: ['beta', 'run', 'jobs', 'update', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
-  args: ['beta', 'run', 'jobs', 'create', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
+  args: ['beta', 'run', 'jobs', 'update', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
+  # args: ['beta', 'run', 'jobs', 'create', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
 
 # #  Continuous deployment steps
 # # Build the container image
