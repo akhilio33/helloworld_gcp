@@ -1,5 +1,3 @@
-import base64
-from google.cloud import secretmanager
 import pandas as pd
 
 
