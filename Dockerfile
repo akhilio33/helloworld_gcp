@@ -31,7 +31,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # CMD instruction should be used to run the software
 # contained by your image, along with any arguments.
-CMD [ "python", "main.py"]
+CMD [ "python", "main.py", "call_job()"]
 
 # [END run_helloworld_dockerfile]
 # [END cloudrun_helloworld_dockerfile]
