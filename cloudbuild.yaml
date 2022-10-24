@@ -5,9 +5,9 @@ steps:
   # Run pip install and pytest in the same build step
   # (pip packages won't be preserved in future steps!)
   args: [-c, 'pip install -r requirements.txt']
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args: [
-    'functions', 'deploy', 'call_func',
+    'gcloud', 'functions', 'deploy', 'call_func',
     '--source', '.',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
