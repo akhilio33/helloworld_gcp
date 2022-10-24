@@ -18,15 +18,15 @@ steps:
 # Cloud Run job steps
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', './run/jobs/']
+  args: ['build', '-t', 'gcr.io/clever-hangar-351317/call_job', '.']
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld']
+  args: ['push', 'gcr.io/clever-hangar-351317/call_job']
 # Create container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['beta', 'run', 'jobs', 'update', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-east4']
-  # args: ['beta', 'run', 'jobs', 'create', 'cloud-run-jobs-helloworld', '--image', 'gcr.io/clever-hangar-351317/cloud_run_jobs_helloworld', '--region', 'us-east4']
+  # args: ['beta', 'run', 'jobs', 'update', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
+  args: ['beta', 'run', 'jobs', 'create', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
 
 # #  Continuous deployment steps
 # # Build the container image
