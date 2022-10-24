@@ -8,13 +8,12 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args: [
     'gcloud', 'functions', 'deploy', 'call_func',
-    '--source', '.',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-east4',
     '--memory', '512MB',
     '--timeout', '540s',
-    '--trigger-http' # 'ps-every-5-mins-function-helloworld'
+    '--trigger-topic', 'ps-every-5-mins-function-helloworld',
   ]
 # Cloud Run job steps
 # Build the container image
