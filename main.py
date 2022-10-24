@@ -5,10 +5,11 @@ import pandas as pd
 
 
 def call_func(event, context):
-  functions.function_test.hello_func()
-  data = ['hello', 'from', 'main.call_func']
-  df = pd.DataFrame(data, columns=['test'])
-  print(df)
+  # functions.function_test.hello_func()
+  # data = ['hello', 'from', 'main.call_func']
+  # df = pd.DataFrame(data, columns=['test'])
+  # print(df)
+  print("call_func success")
 
 
 def call_job():
