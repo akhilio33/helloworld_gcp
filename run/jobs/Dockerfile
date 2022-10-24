@@ -31,7 +31,7 @@ COPY . .
 
 # CMD instruction should be used to run the software
 # contained by your image, along with any arguments.
-CMD [ "python", "main.py"]
+CMD [ "python", "job_test.py"]
 
 # [END run_helloworld_dockerfile]
 # [END cloudrun_helloworld_dockerfile]

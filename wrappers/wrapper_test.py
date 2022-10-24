@@ -1,14 +1,15 @@
 import base64
 from google.cloud import secretmanager
 import pandas as pd
-import requests
 
 
 class testObject(object):
   def __init__(self):
     # access secrets
-    df = pd.DataFrame()
+    data = ['hello', 'from', 'wrapper object']
+    self.df = pd.DataFrame(data, columns=['test'])
 
   def test_func(self, str):
-    print('wt works')
+    print('wrapper test function works')
+    print(self.df)
     print(str)
