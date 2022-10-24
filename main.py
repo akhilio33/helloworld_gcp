@@ -16,7 +16,3 @@ def call_job():
   data = ['hello', 'from', 'main.call_job']
   df = pd.DataFrame(data, columns=['test'])
   print(df)
-
-
-call_func(0, 0)
-call_job()
