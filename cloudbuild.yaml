@@ -25,32 +25,13 @@ steps:
 # Create container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['beta', 'run', 'jobs', 'update', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
-  # args: ['beta', 'run', 'jobs', 'create', 'call-job', '--image', 'gcr.io/clever-hangar-351317/call_job', '--region', 'us-east4']
-
-# #  Continuous deployment steps
-# # Build the container image
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build', '-t', 'gcr.io/clever-hangar-351317/cloud-run-jobs-helloworld-1:$COMMIT_SHA', './run/jobs']
-# # Push the container image to Container Registry
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['push', 'gcr.io/clever-hangar-351317/cloud-run-jobs-helloworld-1:$COMMIT_SHA']
-# # Deploy container image to Cloud Run
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: gcloud
-#   args:
-#   - 'beta'
-#   - 'run'
-#   - 'jobs'
-#   - 'deploy'
-#   - 'cloud-run-jobs-helloworld-1'
-#   - '--image'
-#   - 'gcr.io/clever-hangar-351317/cloud-run-jobs-helloworld-1:$COMMIT_SHA'
-#   - '--region'
-#   - 'us-east4'
-# images:
-# - 'gcr.io/clever-hangar-351317/cloud-run-jobs-helloworld-1:$COMMIT_SHA'
-# timeout: 60s  
+  args: [
+    'beta', 'run', 'jobs', 
+    'update', 'call-job', 
+    '--image', 'gcr.io/clever-hangar-351317/call_job', 
+    '--region', 'us-east4'
+    ]
+ 
 
 # close to working - only frequency/schedule arg isn't working
 # # Create Cloud Scheduler job to execute Cloud Run job on schedule
