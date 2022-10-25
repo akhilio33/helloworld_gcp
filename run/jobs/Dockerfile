@@ -23,8 +23,8 @@ FROM python:3.10-slim
 ENV PYTHONUNBUFFERED True
 
 # Copy local code to the container image.
-WORKDIR ../..
-COPY ../.. ../..
+WORKDIR /root
+COPY . .
 
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
