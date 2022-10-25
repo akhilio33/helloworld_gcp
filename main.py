@@ -11,7 +11,7 @@ def call_func(event, context):
 
 
 def call_job():
-  run.jobs.job_test.hello_run()
+  run.jobs.job_test.main()
   data = ['hello', 'from', 'main.call_job']
   df = pd.DataFrame(data, columns=['test'])
   print(df)

@@ -4,25 +4,24 @@
 # import sys
 # import time
 
-import wrappers.wrapper_test
 import sys
 sys.path.append('../..')
-
+import wrappers.wrapper_test
 
 # Define main script
 
-def hello_run():
-  print(f"Hello World!! - from run/jobs/hello_run")
+def main():
+  print(f"Hello World!! - from run/jobs/main")
 
   wt = wrappers.wrapper_test.testObject()
   wt.test_func(
-      'tst str passed to wrapper test_func from run/jobs/job_test.hello_run')
+      'tst str passed to wrapper test_func from run/jobs/job_test.main')
 
 
-# # Start script
-# if __name__ == "__hello_run__":
-#   try:
-#     hello_run()
-#   except Exception as err:
-#     message = f"{str(err)}"
-#     print(message)
+# Start script
+if __name__ == "__main__":
+  try:
+    main()
+  except Exception as err:
+    message = f"{str(err)}"
+    print(message)
