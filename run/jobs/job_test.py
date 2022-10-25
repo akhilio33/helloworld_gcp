@@ -20,7 +20,7 @@ def hello_run():
 
 
 # Start script
-if __name__ == "__main__":
+if __name__ == "__hello_run__":
   try:
     hello_run()
   except Exception as err:
