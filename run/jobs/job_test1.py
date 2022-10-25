@@ -24,21 +24,6 @@ def job2():
   wt = wrappers.wrapper_test.testObject()
   wt.test_func(
       'tst str passed to wrapper test_func from run/jobs/job_test1.main')
-      
 
-# Start script
-if __name__ == "__job1__":
-  try:
-    job1()
-  except Exception as err:
-    message = f"{str(err)}"
-    print(message)
-
-
-# Start script
-if __name__ == "__job2__":
-  try:
-    job2()
-  except Exception as err:
-    message = f"{str(err)}"
-    print(message)
+job1()
+job2()
