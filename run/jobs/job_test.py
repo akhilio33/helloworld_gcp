@@ -19,10 +19,10 @@ def hello_run():
       'tst str passed to wrapper test_func from run/jobs/job_test.hello_run')
 
 
-# Start script
-if __name__ == "__hello_run__":
-  try:
-    hello_run()
-  except Exception as err:
-    message = f"{str(err)}"
-    print(message)
+# # Start script
+# if __name__ == "__hello_run__":
+#   try:
+#     hello_run()
+#   except Exception as err:
+#     message = f"{str(err)}"
+#     print(message)
