@@ -7,61 +7,59 @@ steps:
   args: [-c, 'pip install -r requirements.txt']
 - name: 'gcr.io/cloud-builders/gcloud' #'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args: [
-    'functions', 'deploy', 'hello_func',
+    'functions', 'deploy', 'call_func',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-east4',
-    '--source', 'functions/',
-    '--entry-point', 'function_test.hello_func',
     '--memory', '512MB',
     '--timeout', '540s',
     '--trigger-topic', 'ps-every-5-mins-function-helloworld',
   ]
-# - name: 'gcr.io/cloud-builders/gcloud' #'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   args: [
-#     'functions', 'deploy', 'call_func',
-#     '--project', 'clever-hangar-351317',
-#     '--runtime', 'python39',
-#     '--region', 'us-east4',
-#     '--memory', '512MB',
-#     '--timeout', '540s',
-#     '--trigger-topic', 'ps-every-5-mins-function-helloworld',
-  # ]
+- name: 'gcr.io/cloud-builders/gcloud' #'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args: [
+    'functions', 'deploy', 'call_func_2',
+    '--project', 'clever-hangar-351317',
+    '--runtime', 'python39',
+    '--region', 'us-east4',
+    '--memory', '512MB',
+    '--timeout', '540s',
+    '--trigger-topic', 'ps-every-5-mins-function-helloworld',
+  ]
 
-# # Cloud Run job steps
-# # Job 1
-# # Build the container image
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build', '-t', 'gcr.io/clever-hangar-351317/call_job', '-f', 'run/jobs/Dockerfile_job1', '.']
-# # Push the container image to Container Registry
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['push', 'gcr.io/clever-hangar-351317/call_job']
-# # Create container image to Cloud Run
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: gcloud
-#   args: [
-#     'beta', 'run', 'jobs', 
-#     'update', 'call-job', 
-#     '--image', 'gcr.io/clever-hangar-351317/call_job', 
-#     '--region', 'us-east4'
-#     ]
+# Cloud Run job steps
+# Job 1
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/clever-hangar-351317/call_job', '-f', 'run/jobs/Dockerfile_job1', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/clever-hangar-351317/call_job']
+# Create container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: [
+    'beta', 'run', 'jobs', 
+    'update', 'call-job', 
+    '--image', 'gcr.io/clever-hangar-351317/call_job', 
+    '--region', 'us-east4'
+    ]
 
-# # Job 2
-# # Build the container image
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build', '-t', 'gcr.io/clever-hangar-351317/call_job_2', '-f', 'run/jobs/Dockerfile_job2', '.']
-# # Push the container image to Container Registry
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ['push', 'gcr.io/clever-hangar-351317/call_job_2']
-# # Create container image to Cloud Run
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   entrypoint: gcloud
-#   args: [
-#     'beta', 'run', 'jobs', 
-#     'update', 'call-job-2', 
-#     '--image', 'gcr.io/clever-hangar-351317/call_job_2', 
-#     '--region', 'us-east4'
-#     ]
+# Job 2
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/clever-hangar-351317/call_job_2', '-f', 'run/jobs/Dockerfile_job2', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/clever-hangar-351317/call_job_2']
+# Create container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: [
+    'beta', 'run', 'jobs', 
+    'update', 'call-job-2', 
+    '--image', 'gcr.io/clever-hangar-351317/call_job_2', 
+    '--region', 'us-east4'
+    ]
  
 
 # close to working - only frequency/schedule arg isn't working
