@@ -12,7 +12,7 @@ import wrappers.wrapper_test
 
 
 def job1():
-  print(f"Hello World!! - from run/jobs/job_test - JOB 1")
+  print(f"Hello World! - from run/jobs/job_test - JOB 1")
 
   wt = wrappers.wrapper_test.testObject()
   wt.test_func(
