@@ -12,7 +12,7 @@ steps:
     '--runtime', 'python39',
     '--region', 'us-east4',
     '--source', 'functions/',
-    '--entrypoint', 'function_test.hello_func',
+    '--entry-point', 'function_test.hello_func',
     '--memory', '512MB',
     '--timeout', '540s',
     '--trigger-topic', 'ps-every-5-mins-function-helloworld',
