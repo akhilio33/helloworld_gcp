@@ -4,9 +4,9 @@
 # import sys
 # import time
 
-import wrappers.wrapper_test
 import sys
 sys.path.append('../..')
+import wrappers.wrapper_test
 
 # Define main script
 
