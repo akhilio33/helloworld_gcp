@@ -24,7 +24,7 @@ ENV PYTHONUNBUFFERED True
 
 # Copy local code to the container image.
 WORKDIR ../../
-COPY . .
+COPY ../../ ../../
 
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
