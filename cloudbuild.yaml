@@ -1,13 +1,15 @@
 steps:
+
 # Cloud Function steps
+# Function 1
 - name: 'docker.io/library/python:3.9'
   entrypoint: /bin/sh
   # Run pip install and pytest in the same build step
   # (pip packages won't be preserved in future steps!)
   args: [-c, 'pip install -r requirements.txt']
-- name: 'gcr.io/cloud-builders/gcloud' #'gcr.io/google.com/cloudsdktool/cloud-sdk'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk' #'gcr.io/cloud-builders/gcloud'
   args: [
-    'functions', 'deploy', 'call_func',
+    'gcloud', 'functions', 'deploy', 'call_func',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-east4',
@@ -15,9 +17,11 @@ steps:
     '--timeout', '540s',
     '--trigger-topic', 'ps-every-5-mins-function-helloworld',
   ]
-- name: 'gcr.io/cloud-builders/gcloud' #'gcr.io/google.com/cloudsdktool/cloud-sdk'
+
+  # Function 2
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk' #'gcr.io/cloud-builders/gcloud' 
   args: [
-    'functions', 'deploy', 'call_func_2',
+    'gcloud', 'functions', 'deploy', 'call_func_2',
     '--project', 'clever-hangar-351317',
     '--runtime', 'python39',
     '--region', 'us-east4',
@@ -27,6 +31,7 @@ steps:
   ]
 
 # Cloud Run job steps
+
 # Job 1
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
