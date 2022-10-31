@@ -23,7 +23,7 @@ FROM python:3.10-slim
 ENV PYTHONUNBUFFERED True
 
 # Copy local code to the container image.
-WORKDIR ./
+WORKDIR ../../
 COPY . .
 
 # Install production dependencies.
@@ -31,7 +31,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # CMD instruction should be used to run the software
 # contained by your image, along with any arguments.
-CMD [ "python", "run/jobs/job_test1.py"] 
+CMD [ "python", "job_test1.py"] 
 # "&&", "python", "run/jobs/job_test2.py" ]
 
 # [END run_helloworld_dockerfile]
