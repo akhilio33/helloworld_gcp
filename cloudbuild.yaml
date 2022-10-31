@@ -18,7 +18,7 @@ steps:
 # Cloud Run job steps
 # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/clever-hangar-351317/call_job', '-f', 'run/jobs/Dockerfile']
+  args: ['build', '-t', 'gcr.io/clever-hangar-351317/call_job', 'run/jobs/Dockerfile']
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/clever-hangar-351317/call_job']
