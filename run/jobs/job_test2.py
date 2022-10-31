@@ -15,7 +15,7 @@ def job2():
 
   wt = wrappers.wrapper_test.testObject()
   wt.test_func(
-      'tst str passed to wrapper test_func from run/jobs/job_test1.main')
+      'tst str passed to wrapper test_func from run/jobs/job_test2.main')
 
 job2()
 

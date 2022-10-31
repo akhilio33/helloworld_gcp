@@ -14,7 +14,7 @@ def hello_func():
   wt = wrappers.wrapper_test.testObject()
   wt.test_func('tst str passed to wrapper test_func from functions/function_test.hello_func')
 
-# # Start script
+# # Start scriptgit a
 # if __name__ == "__main__":
 #   try:
 #     hello_func()
