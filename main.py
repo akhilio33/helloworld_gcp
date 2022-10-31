@@ -9,6 +9,12 @@ def call_func(event, context):
   df = pd.DataFrame(data, columns=['test'])
   print(df)
 
+# def call_func(event, context):
+#   functions.function_test.hello_func()
+#   data = ['hello', 'from', 'main.call_func']
+#   df = pd.DataFrame(data, columns=['test'])
+#   print(df)
+
 
 # def call_job():
 #   run.jobs.job_test1.main()
