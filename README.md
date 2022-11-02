@@ -85,11 +85,13 @@
    
     1. cloudbuild.yaml
         - [Cloud Function steps](https://cloud.google.com/build/docs/deploying-builds/deploy-functions?hl=en_US#yaml)  
-            step 1 - define the environment and install requirements  
-            steps 2+ - create a step for a each function in functions/main.py to be deployed as a Cloud Function  
+            - step 1 - define the environment and install requirements  
+            - steps 2+ - create a step for a each function in functions/main.py to be deployed as a Cloud Function  
                 - [Trigger the Cloud Function with Pub/Sub and Cloud Scheduler](https://cloud.google.com/scheduler/docs/tut-pub-sub#create_a_job)'
         - [Cloud Run Job steps](https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run?hl=en_US)  
-            step 3 - build the container image using docker via cloud build  
-            step 4 - push the container image to Container Registry  
-            step 5 - deploy container image to Cloud Run - on first run, utilize 'create' argument; on subsequent run, utilize 'update' argument
-            steps 6+ - repeat steps 3-5 for each Cloud Run Job to be deployed
+            - step 3 - build the container image using docker via cloud build  
+            - step 4 - push the container image to Container Registry  
+            - step 5 - deploy container image to Cloud Run
+                - first time deploying Cloud Run Jobs, utilize command line steps outlined aboe
+                - on subsequent times, for updating Jobs, utilize 'update' arguement instead of 'create' argument
+            - steps 6+ - repeat steps 3-5 for each Cloud Run Job 
