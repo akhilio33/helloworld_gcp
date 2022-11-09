@@ -25,37 +25,91 @@
     1. [Set up environment, install Docker, and add the gcloud Docker credential helper](https://cloud.google.com/run/docs/setup)
     1. Open Docker Desktop 
     1. [Create a service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts#iam-service-accounts-create-gcloud) for each Cloud Run Job to be deployed.
-        - Use the naming convention sa_your_function_name; for example, if your Cloud Function was named hubspot_save_owners(), name its service account sa_hubspot_save_owners \
+        - Use the naming convention sa_your_function_name; for example, if your Cloud Run Job was named hubspot_save_owners(), name its service account sa_hubspot_save_owners \
         ```bash
-        gcloud iam service-accounts create SA_NAME \
+        gcloud iam service-accounts create SA-NAME \
         --description="DESCRIPTION" \
-        --display-name="DISPLAY_NAME"
+        --display-name="DISPLAY_NAME" \
+        --project="PROJECT_ID"
+        ```
+        ```bash
+gcloud iam service-accounts create sa-gcal-seed-appts-open-bigq \
+--description="Service account for Cloud Run Job googlecalendar_seed_appts_open_bigquery()" \
+--display-name="sa_googlecalendar_seed_appts_open_bigquery" \
+--project="inlaid-particle-342220"
         ```
         - If this Cloud Run Job will be reading data from the Secret Manager, add the role roles/secretmanager.secretAccessor
         ```bash
-        gcloud projects add-iam-policy-binding PROJECT_ID \
-        --member="serviceAccount:SA_NAME@PROJECT_ID.iam.gserviceaccount.com" \
+        gcloud projects add-iam-policy-binding inlaid-particle-342220 \
+        --member="serviceAccount:SA-NAME@inlaid-particle-342220.iam.gserviceaccount.com" \
         --role="roles/secretmanager.secretAccessor"
         ```
-    1. [Build the container using Docker](https://cloud.google.com/run/docs/building/containers#docker)
+```bash
+gcloud projects add-iam-policy-binding inlaid-particle-342220 \
+--member="serviceAccount:sa-gcal-seed-appts-open-bigq@inlaid-particle-342220.iam.gserviceaccount.com" \
+--role="roles/secretmanager.secretAccessor"
+```
+        - If this Cloud Run Job will be reading or writing data to BigQuery, add the Cloud Run Job's service account to the ```bash vitahealth-dw``` project IAM with the roles 'BigQuery Data Editor' and 'BigQuery Job User'.
+
+    ```bash
+    
+    gcloud projects add-iam-policy-binding utility-tempo-331020 \
+    --member="serviceAccount:SA-NAME@inlaid-particle-342220.iam.gserviceaccount.com" \
+    --role="roles/bigquery.jobUser"
+    gcloud projects add-iam-policy-binding utility-tempo-331020 \
+    --member="serviceAccount:SA-NAME@inlaid-particle-342220.iam.gserviceaccount.com" \
+    --role="roles/bigquery.dataEditor"
+
+    gcloud projects add-iam-policy-binding utility-tempo-331020 \
+    --member="serviceAccount:sa-gcal-seed-appts-open-bigq@inlaid-particle-342220.iam.gserviceaccount.com" \
+    --role="roles/bigquery.jobUser"
+    gcloud projects add-iam-policy-binding utility-tempo-331020 \
+    --member="serviceAccount:sa-gcal-seed-appts-open-bigq@inlaid-particle-342220.iam.gserviceaccount.com" \
+    --role="roles/bigquery.dataEditor"
+    ```
+
+        - If this Cloud Run Job will be reading or writing data to Cloud SQL, add the Cloud Run Job's service account to the ```bash vitahealth-admin``` project IAM with the role 'Cloud SQL Client'.
+
+    ```bash
+    
+    gcloud projects add-iam-policy-binding steel-ridge-352016 \
+    --member="serviceAccount:SA-NAME@inlaid-particle-342220.iam.gserviceaccount.com" \
+    --role="roles/cloudsql.client"
+
+    gcloud projects add-iam-policy-binding steel-ridge-352016 \
+    --member="serviceAccount:sa-gcal-seed-appts-open-bigq@inlaid-particle-342220.iam.gserviceaccount.com" \
+    --role="roles/cloudsql.client"
+    ```
+
+    1. [Build the container using Docker.](https://cloud.google.com/run/docs/building/containers#docker)
         ```bash
-        docker build . -t IMAGE_URL -f  PATH_TO_DOCKERFILE
-        docker build . -t gcr.io/clever-hangar-351317/call_job_3 -f run/jobs/Dockerfile_job3
+        docker build . -t="IMAGE_URL" -f="PATH_TO_DOCKERFILE"
+        docker build . -t="gcr.io/inlaid-particle-342220/googlecalendar_seed_appts_open_bigquery" -f="run/jobs/Dockerfile_googlecalendar_seed_appts_open_bigquery"
         ```
-    1. [Push the container image to Container Registry](https://cloud.google.com/run/docs/building/containers#:~:text=Push%20the%20container%20image%20to%20Container%20Registry)
+    1. [Push the container image to Container Registry](https://cloud.google.com/run/docs/building/containers#:~:text=Push%20the%20container%20image%20to%20Container%20Registry). Image should now be visible in the [Container Registry](https://console.cloud.google.com/gcr/images/inlaid-particle-342220?project=inlaid-particle-342220).
         ```bash
         docker push IMAGE_URL
-        docker push gcr.io/clever-hangar-351317/call_job_3
+        docker push gcr.io/inlaid-particle-342220/googlecalendar_seed_appts_open_bigquery
         ```
-    1. [Deploy container image to Cloud Run Jobs](https://cloud.google.com/run/docs/create-jobs#job), along with the newly created [respective service account](https://cloud.google.com/run/docs/securing/service-identity#gcloud) and [necessary secrets](https://cloud.google.com/run/docs/configuring/secrets#command-line) exposed as environment variables.
+    1. [Deploy container image to Cloud Run Jobs](https://cloud.google.com/run/docs/create-jobs#job), along with the newly created [respective service account](https://cloud.google.com/run/docs/securing/service-identity#gcloud) and [necessary secrets](https://cloud.google.com/run/docs/configuring/secrets#command-line) exposed as environment variables. Cloud Run Job should now be visible [here](https://console.cloud.google.com/run/jobs?project=inlaid-particle-342220).
         ```bash
-        gcloud beta run jobs create JOB-NAME --image IMAGE_URL --region REGION --service-account SERVICE_ACCOUNT --update-secrets=ENV_VAR_NAME=SECRET_NAME:VERSION
-        gcloud beta run jobs create call-job-3 --image gcr.io/clever-hangar-351317/call_job_3 --region us-east4
+        gcloud beta run jobs create JOB-NAME --project="inlaid-particle-342220" --image="IMAGE_URL" --region="REGION" --service-account="SERVICE-ACCOUNT" --set-secrets="ENV_VAR_NAME=SECRET_NAME:VERSION" --set-secrets="ENV_VAR_NAME2=SECRET_NAME2:VERSION" --task-timeout="INT_SECONDS"
+gcloud beta run jobs create googlecalendar-seed-appts-open-bigquery \
+    --project="inlaid-particle-342220" \
+    --image="gcr.io/inlaid-particle-342220/googlecalendar_seed_appts_open_bigquery" \
+    --region="us-east4" \
+    --service-account="sa-gcal-seed-appts-open-bigq@inlaid-particle-342220.iam.gserviceaccount.com" \
+    --set-secrets="GCAL_DOMAINWIDE_DELEGATION_KEY=GCAL_DOMAINWIDE_DELEGATION_KEY:latest" \
+    --set-secrets="VITAHEALTH_ADMIN_DB_USER=VITAHEALTH_ADMIN_DB_USER:latest" \
+    --set-secrets="VITAHEALTH_ADMIN_DB_PASS=VITAHEALTH_ADMIN_DB_PASS:latest" \
+    --set-secrets="VITAHEALTH_ADMIN_DB_NAME=VITAHEALTH_ADMIN_DB_NAME:latest" \
+    --set-secrets="VITAHEALTH_ADMIN_INSTANCE_CONNECTION_NAME=VITAHEALTH_ADMIN_INSTANCE_CONNECTION_NAME:latest" \
+    --task-timeout="3599"
         ```
     1. Executing the Cloud Run job (single execution)
         ```bash
-        gcloud beta run jobs execute JOB_NAME
-        gcloud beta run jobs execute call-job-3
+        gcloud beta run jobs execute JOB-NAME --project="inlaid-particle-342220"
+        gcloud beta run jobs execute googlecalendar-seed-appts-open-bigquery --project="inlaid-particle-342220"
         ```
         - manually executing - go to Cloud Run in Cloud Console, select the job, and then press “EXECUTE” along the top bar
     1. [executing the job on a schedule](https://cloud.google.com/run/docs/execute/jobs-on-schedule#command-line)
@@ -73,9 +127,9 @@
           --http-method POST \
           --oauth-service-account-email 467888596638-compute@developer.gserviceaccount.com
         ```
-    1. Service Account and secrets
     1. Configure
         - [Memory limits](https://cloud.google.com/run/docs/configuring/memory-limits)
+    1. Repeat steps iii - ix for each Cloud Run Job that is being deployed for the first time.
         
 
 4. Continuous Deployment and Integration with Github
